@@ -1,0 +1,133 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "alms": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/alms",
+      "sourceRoot": "projects/alms/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/alms",
+            "index": "projects/alms/src/index.html",
+            "main": "projects/alms/src/main.ts",
+            "polyfills": "projects/alms/src/polyfills.ts",
+            "tsConfig": "projects/alms/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/alms/src/favicon.ico",
+              "projects/alms/src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",
+              "projects/alms/src/styles.scss"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/alms/src/environments/environment.ts",
+                  "with": "projects/alms/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "alms:build",
+            "port": 4201
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "alms:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "alms:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/alms/src/test.ts",
+            "polyfills": "projects/alms/src/polyfills.ts",
+            "tsConfig": "projects/alms/tsconfig.spec.json",
+            "karmaConfig": "projects/alms/karma.conf.js",
+            "assets": [
+              "projects/alms/src/favicon.ico",
+              "projects/alms/src/assets"
+            ],
+            "styles": [
+              "projects/alms/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/alms/tsconfig.app.json",
+              "projects/alms/tsconfig.spec.json",
+              "projects/alms/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/alms/e2e/protractor.conf.js",
+            "devServerTarget": "alms:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "alms:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "alms",
+  "cli": {
+    "analytics": "a914104f-e357-4a43-ab72-54068274dbec"
+  }
+}
